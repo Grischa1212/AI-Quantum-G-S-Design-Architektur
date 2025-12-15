@@ -187,21 +187,23 @@ const EmmySethRahMasterSystem = () => {
   const handleSendMessage = () => {
     if (!inputMessage.trim()) return;
     
+    const originalMessage = inputMessage;
+    const userInput = inputMessage.toLowerCase();
+    
     setChatMessages(prev => [...prev, { 
       role: 'user', 
-      content: inputMessage,
+      content: originalMessage,
       timestamp: new Date().toISOString()
     }]);
     
-    const userInput = inputMessage.toLowerCase();
     setInputMessage('');
     
     setTimeout(() => {
       if (userInput.includes('create tool')) {
-        const toolName = inputMessage.split('create tool')[1]?.trim() || 'New AI Tool';
+        const toolName = originalMessage.toLowerCase().split('create tool')[1]?.trim() || 'New AI Tool';
         createAITool(toolName);
       } else if (userInput.includes('generate code')) {
-        const lang = inputMessage.split('generate code')[1]?.trim() || 'python';
+        const lang = originalMessage.toLowerCase().split('generate code')[1]?.trim() || 'python';
         generateCode(lang);
       } else if (userInput.includes('quantum algorithm')) {
         const qubits = userInput.match(/\d+/)?.[0] || '256';
