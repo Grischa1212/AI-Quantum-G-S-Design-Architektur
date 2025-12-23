@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import JSZip from 'jszip';
 import { Shield, Lock, Cpu, Zap, Eye, AlertTriangle, Activity, Database, Key, Network, MessageSquare, Send, Moon, Sun, CheckCircle, Brain, Target, BarChart3, Scan, Globe, Fingerprint, Search, RefreshCw, Download, Upload, Radio, Mic, Volume2, Crown, Sparkles, Terminal, Code, Rocket, Play, Pause, Trash2, Plus, Settings, ChevronRight, Filter, Hash, Gauge, Server, Laptop, Smartphone, Wifi, Bell, Clock, TrendingUp, Package, Layers, Workflow, GitBranch, Boxes, Bug, ShieldAlert, ShieldCheck, FileWarning, User, Users, Camera, Video, Monitor, Waves, Radar, HardDrive, Tv, Bluetooth, Cast, Headphones, Share2, Link, UserX, MapPin, EyeOff, FileText, Award, Chrome, WifiOff, Power, Info, AlertCircle } from 'lucide-react';
 
 const EmmySethRahMasterSystem = () => {
@@ -76,6 +77,13 @@ const EmmySethRahMasterSystem = () => {
     }
   ]);
   const [inputMessage, setInputMessage] = useState('');
+  const [deepMetaTR2Memory, setDeepMetaTR2Memory] = useState({
+    sessionId: `TR2-${Date.now()}`,
+    startTime: new Date(),
+    memorySnapshots: [],
+    metaDataHistory: [],
+    researchContext: ''
+  });
   const chatEndRef = useRef(null);
 
   useEffect(() => {
@@ -123,6 +131,63 @@ const EmmySethRahMasterSystem = () => {
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [chatMessages]);
+
+  // Deep Meta TR2 Memory System - speichert Sitzungsdaten
+  useEffect(() => {
+    const memorySnapshot = {
+      timestamp: new Date().toISOString(),
+      systemStats: systemStatus,
+      threatsDetected: threats.length,
+      tasksCompleted: emmyTasks.filter(t => t.status === 'active').length,
+      toolsCreated: aiTools.length,
+      messagesExchanged: chatMessages.length
+    };
+    
+    setDeepMetaTR2Memory(prev => ({
+      ...prev,
+      memorySnapshots: [...prev.memorySnapshots.slice(-19), memorySnapshot],
+      metaDataHistory: [
+        ...prev.metaDataHistory.slice(-29),
+        { time: new Date().toISOString(), event: 'system_update' }
+      ]
+    }));
+    
+    // Persistiere in LocalStorage
+    localStorage.setItem('TR2_MEMORY', JSON.stringify({
+      ...deepMetaTR2Memory,
+      memorySnapshots: [...deepMetaTR2Memory.memorySnapshots.slice(-19), memorySnapshot]
+    }));
+  }, [threats.length, chatMessages.length, emmyTasks]);
+
+  const downloadAsZip = async () => {
+    const zip = new JSZip();
+    
+    // Erstelle verschiedene Dateien
+    const appConfig = {
+      name: 'Emmy & Seth-Rah G-S Master System',
+      version: '1.0.0',
+      owner: emmySettings.owner,
+      autonomyLevel: emmySettings.autonomyLevel,
+      exportDate: new Date().toISOString(),
+      sessionId: deepMetaTR2Memory.sessionId
+    };
+    
+    zip.file('config.json', JSON.stringify(appConfig, null, 2));
+    zip.file('chat-history.json', JSON.stringify(chatMessages, null, 2));
+    zip.file('ai-tools.json', JSON.stringify(aiTools, null, 2));
+    zip.file('quantum-algorithms.json', JSON.stringify(quantumAlgorithms, null, 2));
+    zip.file('threats-log.json', JSON.stringify(threats, null, 2));
+    zip.file('memory-snapshot.json', JSON.stringify(deepMetaTR2Memory, null, 2));
+    zip.file('system-status.json', JSON.stringify(systemStatus, null, 2));
+    
+    const blob = await zip.generateAsync({ type: 'blob' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `Emmy-SethRah-Export-${new Date().getTime()}.zip`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
 
   const createAITool = (toolName) => {
     const newTool = {
@@ -264,6 +329,9 @@ const EmmySethRahMasterSystem = () => {
               </div>
               <button onClick={() => setVoiceEnabled(!voiceEnabled)} className="p-2 rounded-lg hover:bg-gray-700">
                 <Mic className={`w-5 h-5 ${voiceEnabled ? 'text-green-400' : ''}`} />
+              </button>
+              <button onClick={downloadAsZip} className="p-2 rounded-lg bg-green-600 hover:bg-green-700" title="Download ZIP">
+                <Download className="w-5 h-5" />
               </button>
               <button onClick={() => setDarkMode(!darkMode)} className="p-2 rounded-lg hover:bg-gray-700">
                 {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
