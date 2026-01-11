@@ -180,11 +180,20 @@ const EmmySethRahMasterSystem = () => {
     zip.file('memory-snapshot.json', JSON.stringify(deepMetaTR2Memory, null, 2));
     zip.file('system-status.json', JSON.stringify(systemStatus, null, 2));
     
+    // Simuliere APK-Info für den Download
+    zip.file('APK_INSTALL_GUIDE.txt', `
+Emmy & Seth-Rah G-S Master System APK Installation
+--------------------------------------------------
+1. Laden Sie diese ZIP-Datei herunter.
+2. Für Android: Nutzen Sie einen 'Web-to-APK' Converter mit der Domain: AI-G-SAKS.replit.app
+3. Installieren Sie die generierte APK auf Ihrem Gerät.
+    `);
+
     const blob = await zip.generateAsync({ type: 'blob' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `Emmy-SethRah-Export-${new Date().getTime()}.zip`;
+    a.download = `AI-G-SAKS-MasterSystem-Export.zip`;
     a.click();
     URL.revokeObjectURL(url);
   };
