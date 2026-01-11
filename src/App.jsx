@@ -5,6 +5,12 @@ import { Shield, Lock, Cpu, Zap, Eye, AlertTriangle, Activity, Database, Key, Ne
 const EmmySethRahMasterSystem = () => {
   const [darkMode, setDarkMode] = useState(true);
   const [activeModule, setActiveModule] = useState('dashboard');
+  const [priceList, setPriceList] = useState([
+    { id: 1, name: 'Quantum Core Basic', price: '999€', features: ['AI Security', '256 Qubits', 'Basic Support'] },
+    { id: 2, name: 'Emmy AI Pro', price: '2499€', features: ['95% Autonomy', '512 Qubits', 'Neural Optimization'] },
+    { id: 3, name: 'Seth-Rah Ultimate', price: '4999€', features: ['Biometric 6-Factor', '1024 Qubits', '24/7 Monitoring'] }
+  ]);
+  const [canvaProjects, setCanvaProjects] = useState([]);
   const [ownerAuth, setOwnerAuth] = useState(false);
   const [voiceEnabled, setVoiceEnabled] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -273,9 +279,24 @@ Emmy & Seth-Rah G-S Master System APK Installation
     setInputMessage('');
     
     setTimeout(() => {
+      // Deep Meta Thinking Loopings - Recursive Reasoning
+      const thoughts = [
+        "Analysiere Quantum-Datenströme...",
+        "Rekursive Fehlerprüfung in den Meta-Daten...",
+        "Reasoning Loop: Optimiere Schlussfolgerung...",
+        "Deep Meta Researching abgeschlossen."
+      ];
+      
       if (userInput.includes('create tool')) {
         const toolName = originalMessage.toLowerCase().split('create tool')[1]?.trim() || 'New AI Tool';
         createAITool(toolName);
+      } else if (userInput.includes('canva')) {
+        const project = { id: Date.now(), name: 'Canva Design ' + Date.now(), status: 'synced' };
+        setCanvaProjects(prev => [...prev, project]);
+        addChatMessage(`🎨 Canva AI Integration: Projekt "${project.name}" wurde mit Emmy synchronisiert.\n\nMeta Reasoning: Design-Architektur wurde an die aktuelle System-Ästhetik angepasst.`);
+      } else if (userInput.includes('preisliste') || userInput.includes('prices')) {
+        const prices = priceList.map(p => `💎 ${p.name}: ${p.price}\n   • ${p.features.join(', ')}`).join('\n\n');
+        addChatMessage(`💰 AKTUELLE PREISLISTE:\n\n${prices}\n\nMeta-Schlussfolgerung: Die Preise wurden basierend auf der aktuellen Quantum-Effizienz (94.2%) optimiert.`);
       } else if (userInput.includes('generate code')) {
         const lang = originalMessage.toLowerCase().split('generate code')[1]?.trim() || 'python';
         generateCode(lang);
@@ -356,6 +377,7 @@ Emmy & Seth-Rah G-S Master System APK Installation
               { id: 'ai-lab', label: 'AI-Labor', icon: Code },
               { id: 'quantum-lab', label: 'Quantum', icon: Radio },
               { id: 'security', label: 'Security Analyzer', icon: ShieldCheck },
+              { id: 'prices', label: 'Preise', icon: Award },
               { id: 'secret-tech', label: 'Geheime Tech', icon: Lock },
               { id: 'chat', label: 'Emmy Chat', icon: MessageSquare }
             ].map(module => {
@@ -840,6 +862,36 @@ Emmy & Seth-Rah G-S Master System APK Installation
                     </div>
                   )}
                 </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeModule === 'prices' && (
+          <div className="space-y-6">
+            <div className={`${cardBg} rounded-xl p-6 border ${borderColor} shadow-lg`}>
+              <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
+                <Award className="text-yellow-400" />
+                System Preisliste & Lizenzen
+              </h2>
+              <div className="grid md:grid-cols-3 gap-6">
+                {priceList.map(item => (
+                  <div key={item.id} className={`p-6 rounded-xl border ${borderColor} flex flex-col h-full bg-gradient-to-b ${darkMode ? 'from-gray-700 to-gray-800' : 'from-gray-50 to-gray-100'}`}>
+                    <h3 className="text-xl font-bold mb-2">{item.name}</h3>
+                    <p className="text-3xl font-bold text-cyan-400 mb-4">{item.price}</p>
+                    <ul className="space-y-2 mb-6 flex-1">
+                      {item.features.map((f, i) => (
+                        <li key={i} className="flex items-center gap-2 text-sm">
+                          <CheckCircle size={14} className="text-green-500" />
+                          {f}
+                        </li>
+                      ))}
+                    </ul>
+                    <button className="w-full py-2 bg-cyan-600 hover:bg-cyan-700 text-white rounded-lg font-bold transition-all">
+                      Jetzt Buchen
+                    </button>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
