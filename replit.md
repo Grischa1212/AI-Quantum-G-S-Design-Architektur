@@ -1,52 +1,64 @@
 # Emmy & Seth-Rah G-S Master System
 
 ## Overview
-A sophisticated React-based AI Master System featuring quantum security, AI tools, and advanced monitoring capabilities.
 
-## Tech Stack
-- **Frontend**: React 19 with Vite 7
-- **Styling**: Tailwind CSS 4
-- **Icons**: Lucide React
-- **Build Tool**: Vite
+This is a React-based dashboard application called "Emmy & Seth-Rah G-S Master System". It appears to be a sophisticated security and AI monitoring interface featuring biometric authentication, quantum computing visualization, threat detection, and various AI tools management. The application is built as a single-page application with a dark/light mode toggle and multiple interactive modules.
 
-## Project Structure
-```
-├── src/
-│   ├── App.jsx          # Main component with all modules
-│   ├── main.jsx         # React entry point
-│   └── index.css        # Tailwind CSS imports
-├── index.html           # HTML template
-├── vite.config.js       # Vite configuration
-├── tailwind.config.js   # Tailwind configuration
-├── postcss.config.js    # PostCSS with @tailwindcss/postcss
-└── package.json         # Dependencies
-```
+## User Preferences
 
-## Features
-1. **Dashboard** - Live system stats with quantum security, AI autonomy, blocked threats, biometrics
-2. **Emmy AI** - AI control center with autonomy settings and task management
-3. **Seth-Rah Security** - Quantum security with biometric factor monitoring
-4. **AI-Labor** - Create AI tools and generate code in multiple languages
-5. **Quantum-Labor** - Manage quantum algorithms with qubit visualization
-6. **Security Analyzer** - Conversation analysis for security threats
-7. **Geheime Tech** - Secret technology implementation (requires auth)
-8. **Emmy Chat** - Interactive chat interface with command processing
+Preferred communication style: Simple, everyday language.
 
-## Chat Commands
-- `help` - Show available commands
-- `status` - Show system status
-- `tasks` - Show Emmy tasks
-- `threats` - Show blocked threats
-- `create tool [name]` - Create new AI tool
-- `generate code [language]` - Generate code
-- `quantum algorithm [qubits]` - Create quantum algorithm
-- `implement [tech]` - Implement secret technology
+## System Architecture
 
-## Running the App
-```bash
-npm run dev
-```
-Server runs on port 5000.
+### Frontend Architecture
+- **Framework**: React 19 with Vite 7 as the build tool
+- **Styling**: Tailwind CSS 4 with PostCSS and Autoprefixer for utility-first CSS
+- **Icons**: Lucide React for icon components
+- **Build Configuration**: ES modules with Vite's React plugin
 
-## Recent Changes
-- December 15, 2025: Initial implementation with all modules
+### Application Structure
+- Single-page application with modular dashboard components
+- State management using React's built-in useState and useEffect hooks
+- Component-based architecture with a main system component handling:
+  - Dashboard view with multiple monitoring modules
+  - Biometric data visualization
+  - AI tools management interface
+  - Quantum algorithm monitoring
+  - Conversation/messaging system
+
+### Design Patterns
+- **Component State**: Local state management for UI interactions
+- **Dark Mode**: Theme toggle system built into the application
+- **Module-Based Navigation**: Active module state controls which dashboard section is displayed
+
+### Development Server
+- Configured to run on port 5000
+- Host binding set to 0.0.0.0 for external access
+- All hosts allowed for Replit compatibility
+
+## External Dependencies
+
+### NPM Packages
+| Package | Purpose |
+|---------|---------|
+| react / react-dom | Core UI framework |
+| vite | Build tool and dev server |
+| @vitejs/plugin-react | React integration for Vite |
+| tailwindcss | Utility-first CSS framework |
+| postcss | CSS processing |
+| autoprefixer | CSS vendor prefixing |
+| lucide-react | Icon library |
+
+### No Backend Services Currently
+- Application is currently frontend-only
+- No database integration
+- No external API connections
+- Authentication UI exists but no backend implementation
+
+### Potential Future Integrations
+Based on the UI components defined in the codebase, the application is designed to support:
+- Biometric authentication systems
+- Quantum computing APIs
+- AI/ML threat detection services
+- Real-time network monitoring
+- Voice recognition services

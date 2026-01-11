@@ -11,13 +11,11 @@ language = "python3"
 requiredFiles = [".replit", "replit.nix"]
 
 [deployment]
-run = ["npm", "run", "build"]
-deploymentTarget = "autoscale"
-build = ["npm", "run", "build"]
+run = ["python3", "main.py"]
+deploymentTarget = "cloudrun"
 
 [agent]
 expertMode = true
-integrations = ["javascript_log_in_with_replit:2.0.0"]
 
 [workflows]
 runButton = "Project"
